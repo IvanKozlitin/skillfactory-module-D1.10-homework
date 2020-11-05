@@ -28,7 +28,9 @@ def read():
 def create(name, column_name):
     # Получим данные всех колонок на доске
     column_data = requests.get(base_url.format('boards') + '/' + board_id + '/lists', params=auth_params).json()
-
+    # Проверим существует ли такая колонка
+    if not column_check(column_name, column_data):
+        return print("Колонка с таким именем не найдена, попробуйте изменить имя колонки в запросе")
     # Переберём данные обо всех колонках, пока не найдём ту колонку, которая нам нужна
     for column in column_data:
         if column['name'] == column_name:
@@ -42,7 +44,7 @@ def create_col(column_name):
     # Создадим колонку с именем column_name
     board_id_for_request = requests.get(base_url.format('boards') + '/' + board_id, params=auth_params).json()
     requests.post(base_url.format('lists'),
-                  params={'name': column_name, 'idBoard': board_id_for_request["id"], **auth_params})
+                  params={'name': column_name, 'idBoard': board_id_for_request["id"], "pos": "bottom", **auth_params})
     print("Колонка с названием {} успешно добавлена.".format(column_name))
 
 
