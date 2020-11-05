@@ -16,11 +16,13 @@ def read():
         # Получим данные всех задач в колонке и перечислим все названия
         task_data = requests.get(base_url.format('lists') + '/' + column['id'] + '/cards', params=auth_params).json()
         print(column['name'] + " ({})".format(str(len(task_data))))  # Выводим название колонки + количество задач в ней
+        i = 1  # счётчик задач в колонке
         if not task_data:
             print('\t' + 'Нет задач!')
             continue
         for task in task_data:
-            print('\t' + task['name'])
+            print('\t{}: '.format(i) + task['name'] + ", id: {}".format(task["id"]))
+            i += 1
 
 
 def create(name, column_name):
@@ -55,8 +57,9 @@ def task_selection(list_tasks, name_task):
         tasts_dict[str(i)] = task
         task_data = requests.get(base_url.format('cards') + '/' + task, params=auth_params).json()
         column_data = requests.get(base_url.format('lists') + '/' + task_data["idList"], params=auth_params).json()
-        print("{} - Название задачи: {}, В какой колонке она находится: {}".format(i, task_data["name"],
-                                                                                   column_data["name"]))
+        print("{} - Название задачи: {}, Находится в колонке: {}, её id: {}".format(i, task_data["name"],
+                                                                                    column_data["name"],
+                                                                                    task_data["id"]))
         i += 1
 
     result = tasts_dict.get(input("Введите номер задачи (Находится слева от названия), которую хотите переместить: "))
