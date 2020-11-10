@@ -9,4 +9,4 @@
 3.3) ```python to-do.py create_col {column_name}``` - Вы создадите колонку с именем {column_name}  
 3.4) ```python to-do.py move {name} {column_name}``` - Вы переместите задачу {name} в колонку {column_name}  
 
-**Ссылка для скачивания программы: https://github.com/KI-Shadow/skillfactory-module-D1.10-homework/archive/main.zip**
+**Ссылка для скачивания программы: https://github.com/IvanKozlitin/skillfactory-module-D1.10-homework/archive/main.zip**
